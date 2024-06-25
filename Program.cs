@@ -1,82 +1,172 @@
-﻿
 using System;
 using System.Collections.Generic;
 using static System.Random;
 using System.Text;
-namespace VS;
 
-class Program
+namespace ZkouskaHandmana
 {
-    static void Main(string[] args)
+    internal class Program
     {
-        Console.WriteLine("Hello, World!");
-    }
-}
- internal class Program
-    {
-  
+        private static void Zakresli(int wrong)
+        {
+            
+            if (wrong == 0)
+            {
+                Console.WriteLine("\n+---+");
+                Console.WriteLine("    |");
+                Console.WriteLine("    |");
+                Console.WriteLine("    |");
+                Console.WriteLine("   ===");
+            }
+            else if (wrong == 1)
+            {
+                Console.WriteLine("\n+---+");
+                Console.WriteLine("O   |");
+                Console.WriteLine("    |");
+                Console.WriteLine("    |");
+                Console.WriteLine("   ===");
+            }
+            else if (wrong == 2)
+            {
+                Console.WriteLine("\n+---+");
+                Console.WriteLine("O   |");
+                Console.WriteLine("|   |");
+                Console.WriteLine("    |");
+                Console.WriteLine("   ===");
+            }
+            else if (wrong == 3)
+            {
+                Console.WriteLine("\n+---+");
+                Console.WriteLine(" O  |");
+                Console.WriteLine("/|  |");
+                Console.WriteLine("    |");
+                Console.WriteLine("   ===");
+            }
+            else if (wrong == 4)
+            {
+                Console.WriteLine("\n+---+");
+                Console.WriteLine(" O  |");
+                Console.WriteLine("/|\\ |");
+                Console.WriteLine("    |");
+                Console.WriteLine("   ===");
+            }
+            else if (wrong == 5)
+            {
+                Console.WriteLine("\n+---+");
+                Console.WriteLine(" O  |");
+                Console.WriteLine("/|\\ |");
+                Console.WriteLine("/   |");
+                Console.WriteLine("   ===");
+            }
+            else if (wrong == 6)
+            {
+                Console.WriteLine("\n+---+");
+                Console.WriteLine(" O   |");
+                Console.WriteLine("/|\\  |");
+                Console.WriteLine("/ \\  |");
+                Console.WriteLine("    ===");
+            }
+        }
+
+        private static int printWord    (   List<char> guessedLetters, String slovo )
+        {
+            int counter = 0;
+            int správně = 0;
+            Console.Write("\r\n");
+            foreach (char c in slovo)
+            {
+                if (guessedLetters.Contains(c))
+                {
+                    Console.Write(c + " ");
+                    správně += 1;
+                }
+                else
+                {
+                    Console.Write("  ");
+                }
+                counter += 1;
+            }
+        
+            return rightLetters;
+        }
+
+        private static void printLines(String slovo)
+        {
+            Console.Write("\r");
+            foreach (char c in slovo)
+            {
+                Console.OutputEncoding = System.Text.Encoding.Unicode;
+                Console.Write("\u0305 ");
+            }
+        }
+
         static void Main(string[] args)
         {
-           
+            
 
             Random random = new Random();
-            List<string> slova = new List<string> { "kočka", "zahrada", "sluchátka", "auto", "peněženka", "mobil", "howdy", "ovoce", "nápoj" };
-            int index = random.Next(slova.Count);
-            String náhodnéSlovo = slova[index];
+            List<string> wordDictionary = new List<string> { "kočka " , "strom",   "jachta " , "sluchátka", "postel", "výlet", "pomáhat", "ovoce" };
+            int index = random.Next(wordDictionary.Count);
+            String slovo = wordDictionary[index];
 
-            foreach (char x in náhodnéSlovo)
+            foreach (char x in slovo)
             {
                 Console.Write("_ ");
             }
 
-            int délkaSlova = náhodnéSlovo.Length;
+            int délkaSlova = slovo.Length;
             int amountOfTimesWrong = 0;
             List<char> currentLettersGuessed = new List<char>();
             int currentLettersRight = 0;
 
             while (amountOfTimesWrong != 6 && currentLettersRight != délkaSlova)
             {
-                Console.Write("\nZatím uhádnuté písmena");
+
+
+                Console.Write("\n Odhad: ");
                 foreach (char letter in currentLettersGuessed)
                 {
                     Console.Write(letter + " ");
                 }
                
-                Console.Write("\nHádej písmeno: ");
-                char písmeno = Console.ReadLine()[0];
-                // Check if that letter has already been guessed
+                Console.Write("\n Hádej písmeno: ");
+                char letterGuessed = Console.ReadLine()[0];
+
+
+         
                 if (currentLettersGuessed.Contains(letterGuessed))
                 {
-                    Console.Write("\r\n už si uhádl tohle písmeno");
-                    printHangman(amountOfTimesWrong);
-                    currentLettersRight = printWord(currentLettersGuessed, náhodnéSlovo);
-                    printLines(náhodnéSlovo);
+                    Console.Write("\r\n Tohle písmeno už jsi hádal:");
+                    Zakresli(amountOfTimesWrong);
+                    currentLettersRight = printWord(currentLettersGuessed, slovo);
+                    printLines(slovo);
                 }
                 else
                 {
-                 
                     bool right = false;
-                    for (int i = 0; i < náhodnéSlovo.Length; i++) { if (písmeno == náhodnéSlovo[i]) { right = true; } }
+                    for (int i = 0; i < slovo.Length; i++) { if (letterGuessed == slovo[i]) { right = true; } }
 
-                   
+                    
                     if (right)
                     {
-                        printHangman(amountOfTimesWrong);
-            
-                        currentLettersGuessed.Add(písmeno);
-                        currentLettersRight = printWord(currentLettersGuessed, náhodnéSlovo);
-                      
+                       Zakresli(amountOfTimesWrong);
                         
+                        currentLettersGuessed.Add(letterGuessed);
+                        currentLettersRight = printWord(currentLettersGuessed, slovo);
+                        Console.Write("\r\n");
+                        printLines(slovo);
                     }
-                   
+                 
                     else
                     {
                         amountOfTimesWrong += 1;
-                        currentLettersGuessed.Add(písmeno);
-                      
-                        currentLettersRight = printWord(currentLettersGuessed, náhodnéSlovo);
+                        currentLettersGuessed.Add(letterGuessed);
+                        
+                       Zakresli(amountOfTimesWrong);
+                        
+                        currentLettersRight = printWord(currentLettersGuessed, slovo);
                         Console.Write("\r\n");
-                       
+                        printLines(slovo);
                     }
                 }
             }
