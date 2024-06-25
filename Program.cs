@@ -1,71 +1,86 @@
-﻿using System.ComponentModel;
-
+﻿
 using System;
+using System.Collections.Generic;
+using static System.Random;
+using System.Text;
+namespace VS;
 
-
-class Oběšenec
+class Program
 {
-
-static void Main()
-
-{
-
-
-
-
-
-string input = Console.ReadLine().ToUpper();
-string copyInput = input;
-int lives = 10;
-
-do
+    static void Main(string[] args)
     {
-        Console.Clear();
-Console.WriteLine("pokusů:" + lives);
-
-for(int i = 0; i< input.Length; i++)
-{
-
-    if(copyInput.Contains(input[i]))
-    {
-
-        Console.Write("_ ");
-    }
-    else
-    {
-
-
-        Console.Write( input[i] + " ");
+        Console.WriteLine("Hello, World!");
     }
 }
+ internal class Program
+    {
+  
+        static void Main(string[] args)
+        {
+           
 
-Console.WriteLine();
-Console.Write("Zadejte písmeno");
+            Random random = new Random();
+            List<string> slova = new List<string> { "kočka", "zahrada", "sluchátka", "auto", "peněženka", "mobil", "howdy", "ovoce", "nápoj" };
+            int index = random.Next(slova.Count);
+            String náhodnéSlovo = slova[index];
 
-ConsoleKeyInfo cki = Console.ReadKey();
- 
-Console.WriteLine();
+            foreach (char x in náhodnéSlovo)
+            {
+                Console.Write("_ ");
+            }
 
-if(input.Contains(char.ToUpper(cki.KeyChar)))
-{
+            int délkaSlova = náhodnéSlovo.Length;
+            int amountOfTimesWrong = 0;
+            List<char> currentLettersGuessed = new List<char>();
+            int currentLettersRight = 0;
 
-    copyInput = copyInput.Replace(char.ToUpper(cki.KeyChar).ToString(), "");
+            while (amountOfTimesWrong != 6 && currentLettersRight != délkaSlova)
+            {
+                Console.Write("\nZatím uhádnuté písmena");
+                foreach (char letter in currentLettersGuessed)
+                {
+                    Console.Write(letter + " ");
+                }
+               
+                Console.Write("\nHádej písmeno: ");
+                char písmeno = Console.ReadLine()[0];
+                // Check if that letter has already been guessed
+                if (currentLettersGuessed.Contains(letterGuessed))
+                {
+                    Console.Write("\r\n už si uhádl tohle písmeno");
+                    printHangman(amountOfTimesWrong);
+                    currentLettersRight = printWord(currentLettersGuessed, náhodnéSlovo);
+                    printLines(náhodnéSlovo);
+                }
+                else
+                {
+                 
+                    bool right = false;
+                    for (int i = 0; i < náhodnéSlovo.Length; i++) { if (písmeno == náhodnéSlovo[i]) { right = true; } }
+
+                   
+                    if (right)
+                    {
+                        printHangman(amountOfTimesWrong);
+            
+                        currentLettersGuessed.Add(písmeno);
+                        currentLettersRight = printWord(currentLettersGuessed, náhodnéSlovo);
+                      
+                        
+                    }
+                   
+                    else
+                    {
+                        amountOfTimesWrong += 1;
+                        currentLettersGuessed.Add(písmeno);
+                      
+                        currentLettersRight = printWord(currentLettersGuessed, náhodnéSlovo);
+                        Console.Write("\r\n");
+                       
+                    }
+                }
+            }
+            Console.WriteLine("\r\n Konec hry");
+        }
+    }
 }
-else
-lives--;
-     } while (lives > 0 && copyInput != "");
-
- if (lives != 0)
-{
- 
- Console.Write("výhra");
-}
-
-else
-{
-
-    Console.Write("prohra");
-}
-
-Console.WriteLine("odpověd byla" + input );}
- }
