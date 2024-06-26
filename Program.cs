@@ -168,7 +168,7 @@ Console.WriteLine("vybral jsi si: " + kategorii); */
                         kolikChyb += 1;
                         currentLettersGuessed.Add(letterGuessed);
                         
-                       Zakresli(amountOfTimesWrong);
+                       Zakresli(kolikChyb);
                         
                         currentLettersRight = printWord(currentLettersGuessed, slovo);
                         Console.Write("\r\n");
