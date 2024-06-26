@@ -116,7 +116,7 @@ namespace ZkouskaHandmana
             }
 
             int délkaSlova = slovo.Length;
-            int amountOfTimesWrong = 0;
+            int kolikChyb = 0;
             List<char> currentLettersGuessed = new List<char>();
             int currentLettersRight = 0;
 
@@ -125,7 +125,7 @@ int kategorii = Convert.ToInt32(Console.ReadLine());
 Console.WriteLine("vybral jsi si: " + kategorii); */
 
 
-            while (amountOfTimesWrong != 6 && currentLettersRight != délkaSlova)
+            while (kolikChyb != 6 && currentLettersRight != délkaSlova)
             {
     
 
@@ -143,7 +143,7 @@ Console.WriteLine("vybral jsi si: " + kategorii); */
                 if (currentLettersGuessed.Contains(letterGuessed))
                 {
                     Console.Write("\r\n Tohle písmeno už jsi hádal:");
-                    Zakresli(amountOfTimesWrong);
+                    Zakresli(kolikChyb);
                     currentLettersRight = printWord(currentLettersGuessed, slovo);
                     printLines(slovo);
                 }
@@ -155,7 +155,7 @@ Console.WriteLine("vybral jsi si: " + kategorii); */
                     
                     if (right)
                     {
-                       Zakresli(amountOfTimesWrong);
+                       Zakresli(kolikChyb);
                         
                         currentLettersGuessed.Add(letterGuessed);
                         currentLettersRight = printWord(currentLettersGuessed, slovo);
@@ -165,7 +165,7 @@ Console.WriteLine("vybral jsi si: " + kategorii); */
                  
                     else
                     {
-                        amountOfTimesWrong += 1;
+                        kolikChyb += 1;
                         currentLettersGuessed.Add(letterGuessed);
                         
                        Zakresli(amountOfTimesWrong);
