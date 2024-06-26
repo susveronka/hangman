@@ -87,7 +87,7 @@ namespace ZkouskaHandmana
                 counter += 1;
             }
         
-            return rightLetters;
+            return správně;
         }
 
         private static void printLines(String slovo)
@@ -106,6 +106,7 @@ namespace ZkouskaHandmana
 
             Random random = new Random();
             List<string> wordDictionary = new List<string> { "kočka " , "strom",   "jachta " , "sluchátka", "postel", "výlet", "pomáhat", "ovoce" };
+                     
             int index = random.Next(wordDictionary.Count);
             String slovo = wordDictionary[index];
 
@@ -119,9 +120,14 @@ namespace ZkouskaHandmana
             List<char> currentLettersGuessed = new List<char>();
             int currentLettersRight = 0;
 
+/*Console.WriteLine("vyber si kategorii: Zvířata, potraviny, nábytek");
+int kategorii = Convert.ToInt32(Console.ReadLine());
+Console.WriteLine("vybral jsi si: " + kategorii); */
+
+
             while (amountOfTimesWrong != 6 && currentLettersRight != délkaSlova)
             {
-
+    
 
                 Console.Write("\n Odhad: ");
                 foreach (char letter in currentLettersGuessed)
